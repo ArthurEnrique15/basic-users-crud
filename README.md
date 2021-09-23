@@ -43,6 +43,8 @@ yarn add tsyringe
 yarn add uuid
 
 yarn add @types/uuid -D
+
+yarn add express-async-errors
 ```
 
 A configuração do **eslint** e do **prettier** para padronização de código e correção automática pode ser feita seguindo o passo a passo presente [neste link](https://www.notion.so/ESLint-e-Prettier-Trilha-Node-js-d3f3ef576e7f45dfbbde5c25fa662779#eaf6e8bdcabc4d809cdae302e29750da). Basta executar os comandos para instalar as bibliotecas e em seguida copiar os arquivos **.editorconfig**, **.eslintignor**e, **.eslint.json** e **prettier.config.js** desse projeto.
@@ -52,9 +54,9 @@ A configuração do **eslint** e do **prettier** para padronização de código 
 Adicionar o seguinte código no arquivo package.json, após "license":
 ```json
 "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
-},
+  },
 ```
 
 Esse código define alguns comandos que serão executados ao longo do desenvolvimento.
@@ -70,6 +72,18 @@ Descomentar as seguintes linhas (necessário para fazer o typeorm funcionar):
 ```json
 "experimentalDecorators": true,
 "emitDecoratorMetadata": true,
+```
+
+Descomentar as linhas de **baseURL** e **paths** e escrever o seguinte (imports utilizando o @ para facilitar a importação de arquivos):
+```json
+"baseUrl": "./src",
+"paths": {
+    "@modules/*": ["modules/*"],
+    "@config/*": ["config/*"],
+    "@shared/*": ["shared/*"],
+    "@errors/*": ["errors/*"],
+    "@utils/*": ["utils/*"]
+},
 ```
 
 ## Docker, docker-compose e banco de dados
