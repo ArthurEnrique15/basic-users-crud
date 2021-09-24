@@ -45,6 +45,10 @@ yarn add uuid
 yarn add @types/uuid -D
 
 yarn add express-async-errors
+
+yarn add jest @types/jest -D
+
+yarn add ts-jest
 ```
 
 A configuração do **eslint** e do **prettier** para padronização de código e correção automática pode ser feita seguindo o passo a passo presente [neste link](https://www.notion.so/ESLint-e-Prettier-Trilha-Node-js-d3f3ef576e7f45dfbbde5c25fa662779#eaf6e8bdcabc4d809cdae302e29750da). Basta executar os comandos para instalar as bibliotecas e em seguida copiar os arquivos **.editorconfig**, **.eslintignor**e, **.eslint.json** e **prettier.config.js** desse projeto.
@@ -63,28 +67,7 @@ Esse código define alguns comandos que serão executados ao longo do desenvolvi
 
 ## Modificações no arquivo tsconfig.json
 
-Deixar comentada a seguinte linha (desabilita a checagem estrita de tipos):
-```json
-"strict": true,
-```
-
-Descomentar as seguintes linhas (necessário para fazer o typeorm funcionar):
-```json
-"experimentalDecorators": true,
-"emitDecoratorMetadata": true,
-```
-
-Descomentar as linhas de **baseURL** e **paths** e escrever o seguinte (imports utilizando o @ para facilitar a importação de arquivos):
-```json
-"baseUrl": "./src",
-"paths": {
-    "@modules/*": ["modules/*"],
-    "@config/*": ["config/*"],
-    "@shared/*": ["shared/*"],
-    "@errors/*": ["errors/*"],
-    "@utils/*": ["utils/*"]
-},
-```
+Os comentários nesse arquivo devem ser removidos. Portanto, basta copiar o arquivo tsconfig.json desse projeto e substituir no novo projeto.
 
 ## Docker, docker-compose e banco de dados
 
@@ -96,16 +79,36 @@ O arquivo **Dockerfile** também contém configurações do docker, então copie
 
 A conexão com o banco de dados é feita pelo arquivo **/database/index.ts**.
 
+## Testes unitários e de integração
+
+### Configuração do **Jest**
+
+Para iniciar a configuração do Jest, basta rodar o comando abaixo:
+
+```
+yarn jest --init
+```
+
+Após executar o comando e realizar as configurações, descomentar os seguintes atributos do arquivo **jest.config.ts** e alterá-los para:
+
+```ts
+bail: true,
+
+preset: "ts-jest",
+
+testMatch: ["**/*.spec.ts"],
+```
+
+
+
 
 
 
 ## Upload de arquivo
 
-## Testes unitários e de integração
+
 
 ## Documentação com swaggerUI
-
-## injeção de dependência com tsyringe
 
 
 
