@@ -1,8 +1,10 @@
 import {
     Column,
     CreateDateColumn,
+    DeleteDateColumn,
     Entity,
     PrimaryGeneratedColumn,
+    UpdateDateColumn,
 } from "typeorm";
 
 @Entity("category")
@@ -18,6 +20,12 @@ class Category {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
+
+    @DeleteDateColumn()
+    deleted_at: Date;
 }
 
 export { Category };

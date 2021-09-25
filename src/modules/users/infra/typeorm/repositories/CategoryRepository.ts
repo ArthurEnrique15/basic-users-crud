@@ -29,6 +29,31 @@ class CategoryRepository implements ICategoryRepository {
         const category = await this.repository.findOne({ name });
         return category;
     }
+
+    async findById(id: string): Promise<Category> {
+        const category = await this.repository.findOne({ id });
+        return category;
+    }
+
+    async findDeletedById(id: string): Promise<Category> {
+        const deletedCategory = await this.repository
+            .createQueryBuilder("deletedCategory")
+            .where("id = :id", { id })
+            .andWhere("deleted_at IS NOT NULL")
+            .withDeleted()
+            .getOne();
+
+        return deletedCategory;
+    }
+
+    async softDelete(id: string): Promise<void> {
+        await this.repository.softDelete(id);
+    }
+
+    async restore(id: string): Promise<Category> {
+        await this.repository.restore(id);
+        return this.findById(id);
+    }
 }
 
 export { CategoryRepository };

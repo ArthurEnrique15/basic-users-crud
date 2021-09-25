@@ -14,6 +14,8 @@ interface IResponse {
     name: string;
     description: string;
     created_at: Date;
+    updated_at: Date;
+    deleted_at: Date;
 }
 
 @injectable()
@@ -41,6 +43,8 @@ class CreateCategoryUseCase {
             name: createdCategory.name,
             description: createdCategory.description,
             created_at: createdCategory.created_at,
+            updated_at: createdCategory.updated_at,
+            deleted_at: createdCategory.deleted_at,
         };
 
         return responseCategory;

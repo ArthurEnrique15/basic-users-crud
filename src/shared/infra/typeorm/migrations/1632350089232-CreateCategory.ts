@@ -25,6 +25,16 @@ export class CreateCategory1632350089232 implements MigrationInterface {
                         type: "timestamp",
                         default: "now()",
                     },
+                    {
+                        name: "updated_at",
+                        type: "timestamp",
+                        isNullable: true,
+                    },
+                    {
+                        name: "deleted_at",
+                        type: "timestamp",
+                        isNullable: true,
+                    },
                 ],
             })
         );
