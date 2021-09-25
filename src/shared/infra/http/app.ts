@@ -1,7 +1,6 @@
 // import "dotenv/config";
 import "reflect-metadata";
 import express, { NextFunction, Response, Request } from "express";
-// o express não sabe lidar com os throws, então precisamos dessa biblioteca para tratar os erros
 import "express-async-errors";
 // import swaggerUi from "swagger-ui-express";
 

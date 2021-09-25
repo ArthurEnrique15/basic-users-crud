@@ -9,6 +9,13 @@ interface IRequest {
     description: string;
 }
 
+interface IResponse {
+    id: string;
+    name: string;
+    description: string;
+    created_at: Date;
+}
+
 @injectable()
 class CreateCategoryUseCase {
     constructor(
@@ -16,7 +23,7 @@ class CreateCategoryUseCase {
         private categoryRepository: ICategoryRepository
     ) {}
 
-    async execute({ description, name }: IRequest): Promise<Category> {
+    async execute({ name, description }: IRequest): Promise<Category> {
         const categoryAlreadyExists = await this.categoryRepository.findByName(
             name
         );
@@ -24,12 +31,19 @@ class CreateCategoryUseCase {
         if (categoryAlreadyExists)
             throw new AppError("Category already exists!");
 
-        const createdCategory = this.categoryRepository.create({
+        const createdCategory = await this.categoryRepository.create({
             name,
             description,
         });
 
-        return createdCategory;
+        const responseCategory: IResponse = {
+            id: createdCategory.id,
+            name: createdCategory.name,
+            description: createdCategory.description,
+            created_at: createdCategory.created_at,
+        };
+
+        return responseCategory;
     }
 }
 
