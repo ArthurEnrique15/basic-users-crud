@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 
-import { Category } from "@modules/users/infra/typeorm/entities/Category";
-import { ICategoryRepository } from "@modules/users/repositories/ICategoryRepository";
+import { Category } from "@modules/categories/infra/typeorm/entities/Category";
+import { ICategoryRepository } from "@modules/categories/repositories/ICategoryRepository";
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()
@@ -18,9 +18,9 @@ class RestoreCategoryUseCase {
 
         if (!deletedCategory) throw new AppError("Category wasn't deleted!");
 
-        const restoredCategory = await this.categoryRepository.restore(id);
+        await this.categoryRepository.restore(id);
 
-        return restoredCategory;
+        return this.categoryRepository.findById(id);
     }
 }
 

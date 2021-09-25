@@ -1,5 +1,5 @@
-import { CategoryRepositoryInMemory } from "@modules/users/repositories/in-memory/CategoryRepositoryInMemory";
-import { CreateCategoryUseCase } from "@modules/users/useCases/createCategory/CreateCategoryUseCase";
+import { CategoryRepositoryInMemory } from "@modules/categories/repositories/in-memory/CategoryRepositoryInMemory";
+import { CreateCategoryUseCase } from "@modules/categories/useCases/createCategory/CreateCategoryUseCase";
 import { AppError } from "@shared/errors/AppError";
 
 let createCategoryUseCase: CreateCategoryUseCase;

@@ -1,21 +1,12 @@
 import { inject, injectable } from "tsyringe";
 
-import { Category } from "@modules/users/infra/typeorm/entities/Category";
-import { ICategoryRepository } from "@modules/users/repositories/ICategoryRepository";
+import { Category } from "@modules/categories/infra/typeorm/entities/Category";
+import { ICategoryRepository } from "@modules/categories/repositories/ICategoryRepository";
 import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     name: string;
     description: string;
-}
-
-interface IResponse {
-    id: string;
-    name: string;
-    description: string;
-    created_at: Date;
-    updated_at: Date;
-    deleted_at: Date;
 }
 
 @injectable()
@@ -38,16 +29,7 @@ class CreateCategoryUseCase {
             description,
         });
 
-        const responseCategory: IResponse = {
-            id: createdCategory.id,
-            name: createdCategory.name,
-            description: createdCategory.description,
-            created_at: createdCategory.created_at,
-            updated_at: createdCategory.updated_at,
-            deleted_at: createdCategory.deleted_at,
-        };
-
-        return responseCategory;
+        return this.categoryRepository.findById(createdCategory.id);
     }
 }
 

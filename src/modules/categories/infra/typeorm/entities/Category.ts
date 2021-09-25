@@ -19,13 +19,13 @@ class Category {
     description: string;
 
     @CreateDateColumn()
-    created_at: Date;
+    created_at?: Date;
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updated_at?: Date;
 
     @DeleteDateColumn()
-    deleted_at: Date;
+    deleted_at?: Date;
 }
 
 export { Category };

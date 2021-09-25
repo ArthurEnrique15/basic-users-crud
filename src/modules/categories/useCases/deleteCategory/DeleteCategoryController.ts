@@ -9,9 +9,9 @@ class DeleteCategoryController {
 
         const deleteCategoryUseCase = container.resolve(DeleteCategoryUseCase);
 
-        await deleteCategoryUseCase.execute(id);
+        const deletedCategory = await deleteCategoryUseCase.execute(id);
 
-        return response.send();
+        return response.json(deletedCategory);
     }
 }
 

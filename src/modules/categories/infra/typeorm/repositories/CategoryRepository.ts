@@ -1,7 +1,8 @@
 import { getRepository, Repository } from "typeorm";
 
-import { ICreateCategoryDTO } from "@modules/users/dtos/ICreateCategoryDTO";
-import { ICategoryRepository } from "@modules/users/repositories/ICategoryRepository";
+import { ICreateCategoryDTO } from "@modules/categories/dtos/ICreateCategoryDTO";
+import { IUpdateCategoryDTO } from "@modules/categories/dtos/IUpdateCategoryDTO";
+import { ICategoryRepository } from "@modules/categories/repositories/ICategoryRepository";
 
 import { Category } from "../entities/Category";
 
@@ -14,10 +15,30 @@ class CategoryRepository implements ICategoryRepository {
 
     async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
         const category = this.repository.create({ name, description });
+        await this.repository.save(category);
+        return category;
+    }
 
-        const createdCategory = await this.repository.save(category);
+    async update({
+        id,
+        name,
+        description,
+    }: IUpdateCategoryDTO): Promise<Category> {
+        const updatedCategory = await this.repository.save({
+            id,
+            name,
+            description,
+        });
 
-        return createdCategory;
+        return updatedCategory;
+    }
+
+    async softDelete(id: string): Promise<void> {
+        await this.repository.softDelete(id);
+    }
+
+    async restore(id: string): Promise<void> {
+        await this.repository.restore(id);
     }
 
     async list(): Promise<Category[]> {
@@ -37,7 +58,7 @@ class CategoryRepository implements ICategoryRepository {
 
     async findDeletedById(id: string): Promise<Category> {
         const deletedCategory = await this.repository
-            .createQueryBuilder("deletedCategory")
+            .createQueryBuilder()
             .where("id = :id", { id })
             .andWhere("deleted_at IS NOT NULL")
             .withDeleted()
@@ -46,13 +67,14 @@ class CategoryRepository implements ICategoryRepository {
         return deletedCategory;
     }
 
-    async softDelete(id: string): Promise<void> {
-        await this.repository.softDelete(id);
-    }
+    async findByNameDisregardId(id: string, name: string): Promise<Category> {
+        const category = await this.repository
+            .createQueryBuilder()
+            .where("name = :name", { name })
+            .andWhere("id != :id", { id })
+            .getOne();
 
-    async restore(id: string): Promise<Category> {
-        await this.repository.restore(id);
-        return this.findById(id);
+        return category;
     }
 }
 
