@@ -69,15 +69,15 @@ class CategoryRepository implements ICategoryRepository {
         return deletedCategory;
     }
 
-    async findByNameDisregardId(id: string, name: string): Promise<Category> {
-        const category = await this.repository
-            .createQueryBuilder()
-            .where("name = :name", { name })
-            .andWhere("id != :id", { id })
-            .getOne();
+    // async findByNameDisregardId(id: string, name: string): Promise<Category> {
+    //     const category = await this.repository
+    //         .createQueryBuilder()
+    //         .where("name = :name", { name })
+    //         .andWhere("id != :id", { id })
+    //         .getOne();
 
-        return category;
-    }
+    //     return category;
+    // }
 }
 
 export { CategoryRepository };

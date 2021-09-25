@@ -38,7 +38,7 @@ class UpdateCategoryUseCase {
             description,
         });
 
-        return this.categoryRepository.findById(updatedCategory.id);
+        return updatedCategory;
     }
 }
 

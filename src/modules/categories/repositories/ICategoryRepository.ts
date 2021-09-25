@@ -11,7 +11,7 @@ interface ICategoryRepository {
     findByName(name: string): Promise<Category>;
     findById(id: string): Promise<Category>;
     findDeletedById(id: string): Promise<Category>;
-    findByNameDisregardId(id: string, name: string): Promise<Category>;
+    // findByNameDisregardId(id: string, name: string): Promise<Category>;
 }
 
 export { ICategoryRepository };

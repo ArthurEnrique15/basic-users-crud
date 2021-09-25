@@ -9,23 +9,24 @@ import { ICategoryRepository } from "../ICategoryRepository";
 class CategoryRepositoryInMemory implements ICategoryRepository {
     categories: Category[] = [];
 
-    async create({ name, description }: ICreateCategoryDTO): Promise<void> {
+    async create({ name, description }: ICreateCategoryDTO): Promise<Category> {
         const category = new Category();
 
         Object.assign(category, { id: uuidV4(), name, description });
 
         this.categories.push(category);
+
+        return category;
     }
 
-    update({ id, name, description }: IUpdateCategoryDTO): Promise<void> {
+    update({ id, name, description }: IUpdateCategoryDTO): Promise<Category> {
         throw new Error("Method not implemented.");
     }
 
-    softDelete(id: string): Promise<void> {
+    softRemove(category: Category): Promise<Category> {
         throw new Error("Method not implemented.");
     }
-
-    restore(id: string): Promise<void> {
+    recover(category: Category): Promise<Category> {
         throw new Error("Method not implemented.");
     }
 

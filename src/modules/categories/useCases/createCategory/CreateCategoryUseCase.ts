@@ -1,12 +1,20 @@
 import { inject, injectable } from "tsyringe";
 
-import { Category } from "@modules/categories/infra/typeorm/entities/Category";
 import { ICategoryRepository } from "@modules/categories/repositories/ICategoryRepository";
 import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
     name: string;
     description: string;
+}
+
+interface IResponse {
+    id: string;
+    name: string;
+    description: string;
+    created_at: Date;
+    updated_at: Date;
+    deleted_at: Date;
 }
 
 @injectable()
@@ -16,7 +24,7 @@ class CreateCategoryUseCase {
         private categoryRepository: ICategoryRepository
     ) {}
 
-    async execute({ name, description }: IRequest): Promise<Category> {
+    async execute({ name, description }: IRequest): Promise<IResponse> {
         const categoryAlreadyExists = await this.categoryRepository.findByName(
             name
         );
@@ -24,12 +32,22 @@ class CreateCategoryUseCase {
         if (categoryAlreadyExists)
             throw new AppError("Category already exists!");
 
-        const createdCategory = await this.categoryRepository.create({
+        const { id, created_at, updated_at, deleted_at } =
+            await this.categoryRepository.create({
+                name,
+                description,
+            });
+
+        const responseCategory: IResponse = {
+            id,
             name,
             description,
-        });
+            created_at,
+            updated_at,
+            deleted_at,
+        };
 
-        return this.categoryRepository.findById(createdCategory.id);
+        return responseCategory;
     }
 }
 
