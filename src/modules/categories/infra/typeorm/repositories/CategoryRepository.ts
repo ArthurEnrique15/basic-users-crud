@@ -33,12 +33,14 @@ class CategoryRepository implements ICategoryRepository {
         return updatedCategory;
     }
 
-    async softDelete(id: string): Promise<void> {
-        await this.repository.softDelete(id);
+    async softRemove(category: Category): Promise<Category> {
+        const removedCategory = await this.repository.softRemove(category);
+        return removedCategory;
     }
 
-    async restore(id: string): Promise<void> {
-        await this.repository.restore(id);
+    async recover(category: Category): Promise<Category> {
+        const recoveredCategory = await this.repository.recover(category);
+        return recoveredCategory;
     }
 
     async list(): Promise<Category[]> {

@@ -5,7 +5,7 @@ import { ICategoryRepository } from "@modules/categories/repositories/ICategoryR
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()
-class RestoreCategoryUseCase {
+class RecoverCategoryUseCase {
     constructor(
         @inject("CategoryRepository")
         private categoryRepository: ICategoryRepository
@@ -18,10 +18,12 @@ class RestoreCategoryUseCase {
 
         if (!deletedCategory) throw new AppError("Category wasn't deleted!");
 
-        await this.categoryRepository.restore(id);
+        const recoveredCategory = await this.categoryRepository.recover(
+            deletedCategory
+        );
 
-        return this.categoryRepository.findById(id);
+        return recoveredCategory;
     }
 }
 
-export { RestoreCategoryUseCase };
+export { RecoverCategoryUseCase };

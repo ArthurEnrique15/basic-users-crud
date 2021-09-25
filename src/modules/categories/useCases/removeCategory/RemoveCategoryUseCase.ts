@@ -5,7 +5,7 @@ import { ICategoryRepository } from "@modules/categories/repositories/ICategoryR
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()
-class DeleteCategoryUseCase {
+class RemoveCategoryUseCase {
     constructor(
         @inject("CategoryRepository")
         private categoryRepository: ICategoryRepository
@@ -16,10 +16,12 @@ class DeleteCategoryUseCase {
 
         if (!category) throw new AppError("Category doesn't exists!");
 
-        await this.categoryRepository.softDelete(id);
+        const removedCategory = await this.categoryRepository.softRemove(
+            category
+        );
 
-        return this.categoryRepository.findDeletedById(id);
+        return removedCategory;
     }
 }
 
-export { DeleteCategoryUseCase };
+export { RemoveCategoryUseCase };

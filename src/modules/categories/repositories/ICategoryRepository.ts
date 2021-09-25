@@ -5,8 +5,8 @@ import { Category } from "../infra/typeorm/entities/Category";
 interface ICategoryRepository {
     create({ name, description }: ICreateCategoryDTO): Promise<Category>;
     update({ id, name, description }: IUpdateCategoryDTO): Promise<Category>;
-    softDelete(id: string): Promise<void>;
-    restore(id: string): Promise<void>;
+    softRemove(category: Category): Promise<Category>;
+    recover(category: Category): Promise<Category>;
     list(): Promise<Category[]>;
     findByName(name: string): Promise<Category>;
     findById(id: string): Promise<Category>;
