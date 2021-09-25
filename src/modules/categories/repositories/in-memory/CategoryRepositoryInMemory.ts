@@ -19,8 +19,23 @@ class CategoryRepositoryInMemory implements ICategoryRepository {
         return category;
     }
 
-    update({ id, name, description }: IUpdateCategoryDTO): Promise<Category> {
-        throw new Error("Method not implemented.");
+    async update({
+        id,
+        name,
+        description,
+    }: IUpdateCategoryDTO): Promise<Category> {
+        const categoryIndex = this.categories.findIndex(
+            (category) => category.id === id
+        );
+
+        if (name) this.categories[categoryIndex].name = name;
+
+        if (description)
+            this.categories[categoryIndex].description = description;
+
+        this.categories[categoryIndex].updated_at = new Date();
+
+        return this.categories[categoryIndex];
     }
 
     softRemove(category: Category): Promise<Category> {
@@ -35,15 +50,11 @@ class CategoryRepositoryInMemory implements ICategoryRepository {
     }
 
     async findByName(name: string): Promise<Category> {
-        const category = this.categories.find(
-            (category) => category.name === name
-        );
-
-        return category;
+        return this.categories.find((category) => category.name === name);
     }
 
-    findById(id: string): Promise<Category> {
-        throw new Error("Method not implemented.");
+    async findById(id: string): Promise<Category> {
+        return this.categories.find((category) => category.id === id);
     }
 
     findDeletedById(id: string): Promise<Category> {
