@@ -46,9 +46,17 @@ yarn add @types/uuid -D
 
 yarn add express-async-errors
 
-yarn add jest @types/jest -D
+yarn add jest 
+
+yarn add @types/jest -D
 
 yarn add ts-jest
+
+yarn add supertest
+
+yarn add @types/supertest -D
+
+yarn add dotenv
 ```
 
 A configuração do **eslint** e do **prettier** para padronização de código e correção automática pode ser feita seguindo o passo a passo presente [neste link](https://www.notion.so/ESLint-e-Prettier-Trilha-Node-js-d3f3ef576e7f45dfbbde5c25fa662779#eaf6e8bdcabc4d809cdae302e29750da). Basta executar os comandos para instalar as bibliotecas e em seguida copiar os arquivos **.editorconfig**, **.eslintignor**e, **.eslint.json** e **prettier.config.js** desse projeto.
@@ -79,9 +87,7 @@ O arquivo **Dockerfile** também contém configurações do docker, então copie
 
 A conexão com o banco de dados é feita pelo arquivo **/database/index.ts**.
 
-## Testes unitários e de integração
-
-### Configuração do **Jest**
+## Testes unitários
 
 Para iniciar a configuração do Jest, basta rodar o comando abaixo:
 
@@ -111,7 +117,7 @@ preset: "ts-jest",
 testMatch: ["**/*.spec.ts"],
 ```
 
-
+## Testes de integração
 
 
 
