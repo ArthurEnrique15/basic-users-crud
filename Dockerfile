@@ -19,4 +19,4 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 EXPOSE 3333
 
-CMD ["yarn", "dev"];
+CMD ["yarn", "run", "dev"];

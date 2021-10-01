@@ -18,7 +18,7 @@ describe("Create category controller", () => {
 
     it("Should be able to create a new category", async () => {
         const response = await request(app).post("/categories").send({
-            name: "create_category_test",
+            name: "category_test",
             description: "description_test",
         });
 
@@ -27,7 +27,7 @@ describe("Create category controller", () => {
 
     it("Should not be able to create a new category with an existing name", async () => {
         const response = await request(app).post("/categories").send({
-            name: "create_category_test",
+            name: "category_test",
             description: "description_test",
         });
 

@@ -16,7 +16,7 @@ class UpdateCategoryController {
             description,
         });
 
-        return response.status(201).json(updatedCategory);
+        return response.json(updatedCategory);
     }
 }
 

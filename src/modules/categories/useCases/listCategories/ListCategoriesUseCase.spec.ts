@@ -15,8 +15,8 @@ describe("List categories", () => {
 
     it("Should be able to list all categories", async () => {
         await categoryRepositoryInMemory.create({
-            name: "Category test",
-            description: "Description test",
+            name: "category_test",
+            description: "description_test",
         });
 
         const categories = await listCategoriesUseCase.execute();

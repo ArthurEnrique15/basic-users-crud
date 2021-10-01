@@ -15,8 +15,8 @@ describe("Create category", () => {
 
     it("Should be able to create a new category", async () => {
         const category = {
-            name: "Category test",
-            description: "Category description test",
+            name: "category_test",
+            description: "description_test",
         };
 
         const categoryCreated = await createCategoryUseCase.execute({
@@ -29,8 +29,8 @@ describe("Create category", () => {
 
     it("Should not be able to create a new category with an existing name", async () => {
         const category = {
-            name: "Category test",
-            description: "Category description test",
+            name: "category_test",
+            description: "description_test",
         };
 
         await createCategoryUseCase.execute({
