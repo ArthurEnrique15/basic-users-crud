@@ -15,83 +15,54 @@ describe("Update category", () => {
     });
 
     it("Should be able to update a category", async () => {
-        const category = {
-            name: "Category test",
-            description: "Category description test",
-        };
-
-        await categoryRepositoryInMemory.create({
-            name: category.name,
-            description: category.description,
+        const { id } = await categoryRepositoryInMemory.create({
+            name: "category_test",
+            description: "description_test",
         });
-
-        const { id } = await categoryRepositoryInMemory.findByName(
-            category.name
-        );
 
         const updatedCategory = await updateCategoryUseCase.execute({
             id,
-            name: "Updated category name",
-            description: "Updated category description",
+            name: "updated_category_test",
+            description: "updated_description_test",
         });
 
         expect(updatedCategory.updated_at).not.toBe(null);
-        expect(updatedCategory.name).toBe("Updated category name");
-        expect(updatedCategory.description).toBe(
-            "Updated category description"
-        );
+        expect(updatedCategory.name).toBe("updated_category_test");
+        expect(updatedCategory.description).toBe("updated_description_test");
     });
 
     it("Should not be able to update a category that doesn't exists", async () => {
         await expect(
             updateCategoryUseCase.execute({
-                id: "id",
-                name: "name",
+                id: "non_existing_id",
+                name: "non_existing_name",
             })
         ).rejects.toEqual(new AppError("Category doesn't exists!"));
     });
 
     it("Should not be able to update a category without sending a name or description", async () => {
-        const category = {
-            name: "Category test",
-            description: "Category description test",
-        };
-
-        await categoryRepositoryInMemory.create({
-            name: category.name,
-            description: category.description,
+        const categoryCreated = await categoryRepositoryInMemory.create({
+            name: "category_test",
+            description: "description_test",
         });
-
-        const { id } = await categoryRepositoryInMemory.findByName(
-            category.name
-        );
 
         await expect(
             updateCategoryUseCase.execute({
-                id,
+                id: categoryCreated.id,
             })
         ).rejects.toEqual(new AppError("There's no information to update!"));
     });
 
     it("Should not be able to update a category sending an existing name", async () => {
-        const category = {
-            name: "Category test",
-            description: "Category description test",
-        };
-
-        await categoryRepositoryInMemory.create({
-            name: category.name,
-            description: category.description,
+        const categoryCreated = await categoryRepositoryInMemory.create({
+            name: "category_test",
+            description: "description_test",
         });
-
-        const { id, name } = await categoryRepositoryInMemory.findByName(
-            category.name
-        );
 
         await expect(
             updateCategoryUseCase.execute({
-                id,
-                name,
+                id: categoryCreated.id,
+                name: categoryCreated.name,
             })
         ).rejects.toEqual(new AppError("Category already exists!"));
     });

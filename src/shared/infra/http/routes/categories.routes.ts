@@ -20,7 +20,7 @@ categoriesRoutes.get("/", listCategoriesController.handle);
 
 categoriesRoutes.delete("/delete/:id", removeCategoryController.handle);
 
-categoriesRoutes.put("/restore/:id", recoverCategoryController.handle);
+categoriesRoutes.put("/recover/:id", recoverCategoryController.handle);
 
 categoriesRoutes.put("/update/:id", updateCategoryController.handle);
 
