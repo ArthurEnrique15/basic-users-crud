@@ -17,11 +17,11 @@ export class CreateUser1633199471624 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
-                        name: "address_id",
+                        name: "addressId",
                         type: "uuid",
                     },
                     {
-                        name: "category_id",
+                        name: "categoryId",
                         type: "uuid",
                     },
                     {
@@ -45,7 +45,7 @@ export class CreateUser1633199471624 implements MigrationInterface {
                         name: "FKAddressUser",
                         referencedTableName: "address",
                         referencedColumnNames: ["id"],
-                        columnNames: ["address_id"],
+                        columnNames: ["addressId"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE",
                     },
@@ -53,7 +53,7 @@ export class CreateUser1633199471624 implements MigrationInterface {
                         name: "FKCategoryUser",
                         referencedTableName: "category",
                         referencedColumnNames: ["id"],
-                        columnNames: ["category_id"],
+                        columnNames: ["categoryId"],
                         onDelete: "CASCADE",
                         onUpdate: "CASCADE",
                     },

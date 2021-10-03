@@ -1,4 +1,4 @@
-interface IAddressDTO {
+interface ICreateAddressDTO {
     cep: string;
     logradouro: string;
     complemento: string;
@@ -8,4 +8,4 @@ interface IAddressDTO {
     numero: number;
 }
 
-export { IAddressDTO };
+export { ICreateAddressDTO };
