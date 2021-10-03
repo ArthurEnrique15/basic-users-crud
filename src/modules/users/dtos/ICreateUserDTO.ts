@@ -4,6 +4,7 @@ import { Address } from "../infra/typeorm/entities/Address";
 
 interface ICreateUserDTO {
     name: string;
+    cpf: string;
     address: Address;
     category: Category;
 }

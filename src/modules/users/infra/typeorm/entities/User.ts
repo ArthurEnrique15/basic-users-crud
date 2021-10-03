@@ -22,14 +22,17 @@ class User {
     @Column()
     name: string;
 
-    @OneToOne(() => Address)
+    @Column()
+    cpf: string;
+
+    @OneToOne(() => Address, { eager: true })
     @JoinColumn(/* { name: "address_id" } */)
     address: Address;
 
     // @Column()
     // address_id: string;
 
-    @ManyToOne(() => Category)
+    @ManyToOne(() => Category, { eager: true })
     @JoinColumn()
     category: Category;
 

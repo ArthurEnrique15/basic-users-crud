@@ -12,8 +12,13 @@ class UserRepository implements IUserRepository {
         this.repository = getRepository(User);
     }
 
-    async create({ name, address, category }: ICreateUserDTO): Promise<User> {
-        const user = this.repository.create({ name, address, category });
+    async create({
+        name,
+        cpf,
+        address,
+        category,
+    }: ICreateUserDTO): Promise<User> {
+        const user = this.repository.create({ name, cpf, address, category });
         await this.repository.save(user);
         return user;
     }
@@ -27,9 +32,21 @@ class UserRepository implements IUserRepository {
     // restore() {
     //     throw new Error("Method not implemented.");
     // }
-    // list() {
-    //     throw new Error("Method not implemented.");
-    // }
+
+    async list(): Promise<User[]> {
+        const users = await this.repository.find();
+        return users;
+    }
+
+    async findById(id: string): Promise<User> {
+        const user = await this.repository.findOne({ id });
+        return user;
+    }
+
+    async findByCpf(cpf: string): Promise<User> {
+        const user = await this.repository.findOne({ cpf });
+        return user;
+    }
 }
 
 export { UserRepository };

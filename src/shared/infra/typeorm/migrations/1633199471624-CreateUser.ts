@@ -17,6 +17,10 @@ export class CreateUser1633199471624 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
+                        name: "cpf",
+                        type: "varchar",
+                    },
+                    {
                         name: "addressId",
                         type: "uuid",
                     },
