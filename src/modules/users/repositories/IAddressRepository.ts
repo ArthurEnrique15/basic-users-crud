@@ -1,7 +1,8 @@
 import { Address } from "../infra/typeorm/entities/Address";
 
 interface IAddressRepository {
-    create(address: Address): Promise<Address>;
+    save(address: Address): Promise<Address>;
+    findById(id: string): Promise<Address>;
 }
 
 export { IAddressRepository };

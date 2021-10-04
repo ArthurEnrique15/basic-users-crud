@@ -1,6 +1,7 @@
 import { getRepository, Repository } from "typeorm";
 
 import { ICreateUserDTO } from "@modules/users/dtos/ICreateUserDTO";
+import { IUpdateUserDTO } from "@modules/users/dtos/IUpdateUserDTO";
 import { IUserRepository } from "@modules/users/repositories/IUserRepository";
 
 import { User } from "../entities/User";
@@ -23,9 +24,23 @@ class UserRepository implements IUserRepository {
         return user;
     }
 
-    // update() {
-    //     throw new Error("Method not implemented.");
-    // }
+    async update({
+        id,
+        name,
+        cpf,
+        address,
+        category,
+    }: IUpdateUserDTO): Promise<User> {
+        const updatedUser = await this.repository.save({
+            id,
+            name,
+            cpf,
+            address,
+            category,
+        });
+
+        return updatedUser;
+    }
     // softDelete() {
     //     throw new Error("Method not implemented.");
     // }
@@ -44,7 +59,11 @@ class UserRepository implements IUserRepository {
     }
 
     async findByCpf(cpf: string): Promise<User> {
-        const user = await this.repository.findOne({ cpf });
+        const user = await this.repository
+            .createQueryBuilder()
+            .where("cpf = :cpf", { cpf })
+            .withDeleted()
+            .getOne();
         return user;
     }
 }

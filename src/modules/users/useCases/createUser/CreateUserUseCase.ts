@@ -49,11 +49,6 @@ class CreateUserUseCase {
         if (name === "" || cpf === "" || numero <= 0)
             throw new AppError("Invalid information!");
 
-        // verificar se todas as infomações são válidas
-        // verificar se o cpf é unico
-        // verificar se a categoria existe
-        // verificar se o cep existe
-
         const userCpfAlreadyExists = await this.userRepository.findByCpf(cpf);
 
         if (userCpfAlreadyExists) throw new AppError("User already exists!");
@@ -66,9 +61,7 @@ class CreateUserUseCase {
 
         const address = await this.addressProvider.getAddress(cep, numero);
 
-        if (!address) throw new AppError("Invalid CEP!");
-
-        const createdAddress = await this.addressRepository.create(address);
+        const createdAddress = await this.addressRepository.save(address);
 
         const userCreated = await this.userRepository.create({
             name,

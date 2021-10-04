@@ -11,9 +11,14 @@ class AddressRepository implements IAddressRepository {
         this.repository = getRepository(Address);
     }
 
-    create(address: Address): Promise<Address> {
-        const createdAddress = this.repository.save(address);
+    async save(address: Address): Promise<Address> {
+        const createdAddress = await this.repository.save(address);
         return createdAddress;
+    }
+
+    async findById(id: string): Promise<Address> {
+        const Address = await this.repository.findOne({ id });
+        return Address;
     }
 }
 
