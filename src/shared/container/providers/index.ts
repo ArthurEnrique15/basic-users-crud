@@ -1,7 +1,7 @@
 import { container } from "tsyringe";
 
+import { IAddressProvider } from "./addressProvider/IAddressProvider";
 import { AddressProvider } from "./addressProvider/implementations/AddressProvider";
-import { IAddressProvider } from "./addressProvider/model/IAddressProvider";
 
 container.registerSingleton<IAddressProvider>(
     "AddressProvider",

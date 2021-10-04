@@ -5,7 +5,7 @@ import { ICategoryRepository } from "@modules/categories/repositories/ICategoryR
 import { User } from "@modules/users/infra/typeorm/entities/User";
 import { IAddressRepository } from "@modules/users/repositories/IAddressRepository";
 import { IUserRepository } from "@modules/users/repositories/IUserRepository";
-import { IAddressProvider } from "@shared/container/providers/addressProvider/model/IAddressProvider";
+import { IAddressProvider } from "@shared/container/providers/addressProvider/IAddressProvider";
 import { AppError } from "@shared/errors/AppError";
 
 interface IRequest {
