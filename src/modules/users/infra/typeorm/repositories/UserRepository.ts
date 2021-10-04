@@ -41,12 +41,16 @@ class UserRepository implements IUserRepository {
 
         return updatedUser;
     }
-    // softDelete() {
-    //     throw new Error("Method not implemented.");
-    // }
-    // restore() {
-    //     throw new Error("Method not implemented.");
-    // }
+
+    async softDelete(user: User): Promise<User> {
+        const deletedUser = await this.repository.softRemove(user);
+        return deletedUser;
+    }
+
+    async recover(user: User): Promise<User> {
+        const recoveredUser = await this.repository.recover(user);
+        return recoveredUser;
+    }
 
     async list(): Promise<User[]> {
         const users = await this.repository.find();
@@ -65,6 +69,17 @@ class UserRepository implements IUserRepository {
             .withDeleted()
             .getOne();
         return user;
+    }
+
+    async findDeletedById(id: string): Promise<User> {
+        const deletedUser = await this.repository
+            .createQueryBuilder()
+            .where("id = :id", { id })
+            .andWhere("deleted_at IS NOT NULL")
+            .withDeleted()
+            .getOne();
+
+        return deletedUser;
     }
 }
 

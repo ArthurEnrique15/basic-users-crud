@@ -5,21 +5,21 @@ import { IUserRepository } from "@modules/users/repositories/IUserRepository";
 import { AppError } from "@shared/errors/AppError";
 
 @injectable()
-class DeleteUserUseCase {
+class RecoverUserUseCase {
     constructor(
         @inject("UserRepository")
         private userRepository: IUserRepository
     ) {}
 
     async execute(id: string): Promise<User> {
-        const user = await this.userRepository.findById(id);
+        const deletedUser = await this.userRepository.findDeletedById(id);
 
-        if (!user) throw new AppError("User doesn't exists!");
+        if (!deletedUser) throw new AppError("User wasn't deleted!");
 
-        const deletedUser = await this.userRepository.softDelete(user);
+        const recoveredUser = await this.userRepository.recover(deletedUser);
 
-        return deletedUser;
+        return recoveredUser;
     }
 }
 
-export { DeleteUserUseCase };
+export { RecoverUserUseCase };
