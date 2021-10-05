@@ -13,7 +13,7 @@ let addressProvider: AddressProvider;
 
 describe("Create user", () => {
     beforeEach(() => {
-        jest.setTimeout(60000000000000);
+        jest.setTimeout(60000);
         categoryRepositoryInMemory = new CategoryRepositoryInMemory();
         addressRepositoryInMemory = new AddressRepositoryInMemory();
         addressProvider = new AddressProvider();
@@ -97,20 +97,20 @@ describe("Create user", () => {
         ).rejects.toEqual(new AppError("Category doesn't exists!"));
     });
 
-    // it("Should not be able to create a user sending a non existing cep", async () => {
-    //     const { id: category_id } = await categoryRepositoryInMemory.create({
-    //         name: "category_test",
-    //         description: "description_test",
-    //     });
+    it("Should not be able to create a user sending a non existing cep", async () => {
+        const { id: category_id } = await categoryRepositoryInMemory.create({
+            name: "category_test",
+            description: "description_test",
+        });
 
-    //     await expect(
-    //         await createUserUseCase.execute({
-    //             name: "user_test",
-    //             cpf: "136.927.690-75",
-    //             cep: "non_existing_cep",
-    //             numero: 131,
-    //             category_id,
-    //         })
-    //     ).rejects.toEqual(new AppError("User already exists!"));
-    // });
+        await expect(
+            createUserUseCase.execute({
+                name: "user_test",
+                cpf: "136.927.690-75",
+                cep: "11111111",
+                numero: 131,
+                category_id,
+            })
+        ).rejects.toEqual(new AppError("Invalid CEP!"));
+    });
 });
