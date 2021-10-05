@@ -103,14 +103,16 @@ describe("Create user", () => {
             description: "description_test",
         });
 
+        const cep = "11111111";
+
         await expect(
             createUserUseCase.execute({
                 name: "user_test",
                 cpf: "136.927.690-75",
-                cep: "11111111",
+                cep,
                 numero: 131,
                 category_id,
             })
-        ).rejects.toEqual(new AppError("Invalid CEP!"));
+        ).rejects.toEqual(new Error(`Cep: ${cep} não existe na nossa base`));
     });
 });

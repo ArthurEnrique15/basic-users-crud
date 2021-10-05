@@ -3,7 +3,7 @@ import { Router } from "express";
 import { CreateUserController } from "@modules/users/useCases/createUser/CreateUserController";
 import { DeleteUserController } from "@modules/users/useCases/deleteUser/DeleteUserController";
 import { ListUsersController } from "@modules/users/useCases/listUsers/ListUsersController";
-import { RecoverUserController } from "@modules/users/useCases/restoreUser/RecoverUserController";
+import { RecoverUserController } from "@modules/users/useCases/recoverUser/RecoverUserController";
 import { UpdateUserController } from "@modules/users/useCases/updateUser/UpdateUserController";
 
 const usersRoutes = Router();
