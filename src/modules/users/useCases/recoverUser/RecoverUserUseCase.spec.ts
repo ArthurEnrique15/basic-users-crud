@@ -40,7 +40,7 @@ describe("Recover user", () => {
         expect(userRecovered.deleted_at).toBe(null);
     });
 
-    it("Should not be able to recover a user that doesn't exists", async () => {
+    it("Should not be able to recover a user that wasn't deleted or doesn't exists", async () => {
         await expect(
             recoverUserUseCase.execute("non_existing_id")
         ).rejects.toEqual(new AppError("User wasn't deleted!"));

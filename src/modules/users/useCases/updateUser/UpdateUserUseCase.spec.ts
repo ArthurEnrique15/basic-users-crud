@@ -124,8 +124,8 @@ describe("Update user", () => {
         const address = await addressProvider.getAddress("35930209", 131);
 
         const category = await categoryRepositoryInMemory.create({
-            name: "category_test_1",
-            description: "description_test_1",
+            name: "category_test",
+            description: "description_test",
         });
 
         const userCreated = await userRepositoryInMemory.create({
@@ -143,12 +143,12 @@ describe("Update user", () => {
         ).rejects.toEqual(new AppError("User already exists!"));
     });
 
-    it("Should not be able to update a user sending a non existing category id", async () => {
+    it("Should not be able to update a user sending a non existing category", async () => {
         const address = await addressProvider.getAddress("35930209", 131);
 
         const category = await categoryRepositoryInMemory.create({
-            name: "category_test_1",
-            description: "description_test_1",
+            name: "category_test",
+            description: "description_test",
         });
 
         const userCreated = await userRepositoryInMemory.create({
@@ -164,5 +164,30 @@ describe("Update user", () => {
                 category_id: "non_existing_category_id",
             })
         ).rejects.toEqual(new AppError("Category doesn't exists!"));
+    });
+
+    it("Should not be able to update a user sending a non existing cep", async () => {
+        const address = await addressProvider.getAddress("35930209", 131);
+
+        const category = await categoryRepositoryInMemory.create({
+            name: "category_test",
+            description: "description_test",
+        });
+
+        const userCreated = await userRepositoryInMemory.create({
+            name: "user_test",
+            cpf: "136.927.690-75",
+            address,
+            category,
+        });
+
+        const cep = "11111111";
+
+        await expect(
+            updateUserUseCase.execute({
+                id: userCreated.id,
+                cep,
+            })
+        ).rejects.toEqual(new Error(`Cep: ${cep} não existe na nossa base`));
     });
 });
