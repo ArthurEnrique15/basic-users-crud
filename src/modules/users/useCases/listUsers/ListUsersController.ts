@@ -9,7 +9,7 @@ class ListUsersController {
 
         const users = await listUsersUseCase.execute();
 
-        return response.status(201).json(users);
+        return response.json(users);
     }
 }
 
