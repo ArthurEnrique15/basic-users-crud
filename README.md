@@ -66,9 +66,10 @@ A configuração do **eslint** e do **prettier** para padronização de código 
 Adicionar o seguinte código no arquivo package.json, após "license":
 ```json
 "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli"
-  },
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --poll --respawn src/shared/infra/http/server.ts",
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles"
+},
 ```
 
 Esse código define alguns comandos que serão executados ao longo do desenvolvimento.
@@ -85,7 +86,7 @@ As configurações do typeorm estão no arquivo **ormconfig.json**, e as configu
 
 O arquivo **Dockerfile** também contém configurações do docker, então copie ele também.
 
-A conexão com o banco de dados é feita pelo arquivo **/database/index.ts**.
+A conexão com o banco de dados é feita pelo arquivo **/src/shared/infra/typeorm/index.ts**.
 
 ## Testes unitários
 
@@ -109,8 +110,8 @@ coverageDirectory: "coverage",
 coverageReporters: ["text-summary", "lcov"],
 
 moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-        prefix: "<rootDir>/src/",
-    }),
+    prefix: "<rootDir>/src/",
+}),
 
 preset: "ts-jest",
 
@@ -119,10 +120,6 @@ testMatch: ["**/*.spec.ts"],
 
 ## Testes de integração
 
-
-
-
-## Upload de arquivo
 
 
 
