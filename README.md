@@ -59,6 +59,11 @@ yarn add @types/supertest -D
 yarn add dotenv
 ```
 
+Se desejar, basta executar a seguinte linha:
+```
+yarn init -y && yarn add express && yarn add @types/express -D && yarn add typescript -D && yarn tsc --init && yarn add ts-node-dev -D && yarn add typeorm reflect-metadata && yarn add pg && yarn add tsyringe && yarn add uuid && yarn add @types/uuid -D && yarn add express-async-errors && yarn add jest && yarn add @types/jest -D && yarn add ts-jest && yarn add supertest && yarn add @types/supertest -D && yarn add dotenv
+```
+
 A configuração do **eslint** e do **prettier** para padronização de código e correção automática pode ser feita seguindo o passo a passo presente [neste link](https://www.notion.so/ESLint-e-Prettier-Trilha-Node-js-d3f3ef576e7f45dfbbde5c25fa662779#eaf6e8bdcabc4d809cdae302e29750da). Basta executar os comandos para instalar as bibliotecas e em seguida copiar os arquivos **.editorconfig**, **.eslintignor**e, **.eslint.json** e **prettier.config.js** desse projeto.
 
 ## Modificações no arquivo package.json
